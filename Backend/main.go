@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	signuppath "Backend/Main/EndPoint/SignUpPath"
+	signinpath "Backend/Main/Endpoint/SignInPath"
 	"Backend/models"
 )
 
@@ -18,7 +19,7 @@ func main() {
 	///***************************************** API Refactor **************************************************
 
 	///================= SignIn =================
-	// signinpath.SignInPath(r)
+	signinpath.SignInPath(r)
 
 	///================= SignUp =================
 	signuppath.SignUpPath(r)

@@ -5,3 +5,8 @@ const BaseDatabase = "ta_microservice:TAMicroservice@tcp(db4free.net:3306)/ta_ad
 
 // / ************ CONFIG BASE PATH ************
 const BasePath string = "/api/"
+
+// / GLobal Variable Status Response API
+const StatusParamCodeEndPoint string = "code"
+const StatusParamMessageEndPoint string = "message"
+const StatusParamResponseEndPoint string = "response"
