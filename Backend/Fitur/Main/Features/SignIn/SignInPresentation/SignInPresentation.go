@@ -31,15 +31,15 @@ func SignIn(c *gin.Context) {
 
 	query := `SELECT 
 	user.ID, 
-	user.First_Name, 
-	user.Last_Name, 
+	user.Full_Name, 
 	user.Email,
+	user.Password,
 	user.Phone_Number,
 	user.Gender,
 	user.Address,
 	user.Status
 	FROM user_data as user
-	WHERE user.Email = "` + email + `" AND user.Password = "` + password + `" LIMIT 1`
+	WHERE user.Email = "` + email + `" LIMIT 1`
 	rows, err := models.DB.ConnPool.QueryContext(c, query)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
@@ -48,9 +48,9 @@ func SignIn(c *gin.Context) {
 	for rows.Next() {
 		err := rows.Scan(
 			&responseBody.Id,
-			&responseBody.FirstName,
-			&responseBody.LastName,
+			&responseBody.FullName,
 			&responseBody.Email,
+			&responseBody.Password,
 			&responseBody.PhoneNumber,
 			&responseBody.Gender,
 			&responseBody.Address,
@@ -63,15 +63,13 @@ func SignIn(c *gin.Context) {
 	}
 
 	/// Validate Response Bad Request
-	if responseBody.Id == "" || responseBody.FirstName == "" || responseBody.Email == "" {
+	if responseBody.Id == "" || responseBody.FullName == "" || responseBody.Email == "" {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "User doesn't exist"})
 		return
+	} else if responseBody.Password != password {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Wrong password"})
+		return
 	}
-
-	// if responseBody.IdStatus != 1 {
-	// 	c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": GetStatusName(c, responseBody.IdStatus, responseBody)})
-	// 	return
-	// }
 
 	c.JSON(http.StatusOK, gin.H{
 		core.StatusParamCodeEndPoint:     http.StatusOK,

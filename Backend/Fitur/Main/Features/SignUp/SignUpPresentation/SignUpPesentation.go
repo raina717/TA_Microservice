@@ -58,10 +58,10 @@ func SignUp(c *gin.Context) {
 
 	// Insert user data into user_data table
 	insertQuery := `
-	INSERT INTO user_data (First_Name, Last_Name, Email, Password, Phone_Number, Created)
-	VALUES (?, ?, ?, ?, ?, NOW())
+	INSERT INTO user_data (Full_Name, Email, Password, Phone_Number)
+	VALUES (?, ?, ?, ?)
 	`
-	_, err = models.DB.ConnPool.ExecContext(c, insertQuery, requestBody.FirstName, requestBody.LastName, emailRequest, requestBody.Password, requestBody.PhoneNumber)
+	_, err = models.DB.ConnPool.ExecContext(c, insertQuery, requestBody.FullName, emailRequest, requestBody.Password, requestBody.PhoneNumber)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Failed to insert user data"})
 		return
