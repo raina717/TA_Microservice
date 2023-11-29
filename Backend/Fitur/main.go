@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	signuppath "Backend/Main/EndPoint/SignUpPath"
+	listkabupatenpath "Backend/Main/Endpoint/ListPath/ListKabupatenPath"
+	listkategoripath "Backend/Main/Endpoint/ListPath/ListKategoriPath"
 	signinpath "Backend/Main/Endpoint/SignInPath"
 	"Backend/models"
 )
@@ -24,6 +26,12 @@ func main() {
 
 	///================= SignUp =================
 	signuppath.SignUpPath(r)
+
+	///================= ListKabupaten =================
+	listkabupatenpath.ListKabupatenPath(r)
+
+	///================= ListKabupaten =================
+	listkategoripath.ListKategoriPath(r)
 
 	// Define the port number
 	port := 8080

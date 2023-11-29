@@ -1,7 +1,5 @@
 package signindata
 
-// import "database/sql"
-
 type RequestUsersLogin struct {
 	Email    string `gorm:"type:varchar(191)" json:"email"`
 	Password string `gorm:"type:varchar(191)" json:"password"`
